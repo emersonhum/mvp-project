@@ -1,0 +1,22 @@
+{
+  "name": "mvp-project",
+  "version": "1.0.0",
+  "description": "Search username with Instagram's API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emersonhum/mvp-project.git"
+  },
+  "author": "Emerson Hum",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emersonhum/mvp-project/issues"
+  },
+  "homepage": "https://github.com/emersonhum/mvp-project#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf8'>
+    <title>Emerson's MVP</title>
+    <script src="lib/angular.js"></script>
+    <script src="lib/angular-route.js"></script>
+    <script src='app.js'></script>
+  </head>
+  <body>
+    <h1>Emerson's MVP</h1>
+    <div ng-app='app'>
+      <form name='usernameEnty' ng-submit='submitUsername' ng-controller='searchBarController'>
+        <input type='text' ng-model='username'>
+        <button>Search for {{username}}</button>
+      </form>
+    </div>
+  </body>
+</html>
