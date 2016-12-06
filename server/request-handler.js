@@ -13,6 +13,8 @@ var emerson = new Twitter({
   'access_token_secret': keys.access_token_secret
 });
 
+emerson = Promise.promisifyAll(emerson);
+
 
 
 // exports.showHomepage = function(req, res) {
@@ -23,26 +25,33 @@ var emerson = new Twitter({
 
 exports.submitAPIrequest = function(req, res) {
   var twitterHandle = req.body.username;
-  emerson.get('followers/list', {screen_name: twitterHandle, count: 5}, function(error, followers, response) {
-    if(error) {
-      throw error;
-    }
-    console.log(followers);  // The favorites.   // Raw response object. 
-    console.log(req.body.username);
-    res.send(followers);
-  });
+    emerson.getAsync('followers/list', {screen_name: twitterHandle, count: 5})
+    .then(function(data) {
+      console.log(data);
+    })
+    .catch(function(err) {
+      throw err;
+    });
+
+    
+  // emerson.get('followers/list', {screen_name: twitterHandle, count: 5})
+  // .then(function(error, followers, response) {
+  //   console.log(followers);  // The favorites.   // Raw response object. 
+  //   console.log(req.body.username);
+  //   res.send(followers);
+  // });
 };
 
-exports.getFollowingRatio = function(req, res) {
-  var twitterHandle = req.body.username;
-  var options = {
-    screen_name: twitterHandle,
-    count: 5000
-  }
-  emerson.get('followers/ids', options, function(err, followers, response) {
-    if (err) {
-      throw err;
-    }
-    res.send(followers);
-  });
-};
+// exports.getFollowingRatio = function(req, res) {
+//   var twitterHandle = req.body.username;
+//   var options = {
+//     screen_name: twitterHandle,
+//     count: 5000
+//   }
+//   emerson.get('followers/ids', options, function(err, followers, response) {
+//     if (err) {
+//       throw err;
+//     }
+//     res.send(followers);
+//   });
+// };
