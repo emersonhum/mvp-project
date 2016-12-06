@@ -1,4 +1,6 @@
 var db = require('mongoose');
+var Promise = require('bluebird');
+db.Promise = Promise;
 
 var Schema = db.Schema;
 

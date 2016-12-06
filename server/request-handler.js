@@ -6,6 +6,7 @@ var Promise = require('bluebird');
 var User = require('../db/db-config');
 
 
+
 var Twitter = require('twitter');
 
 var emerson = new Twitter({
@@ -27,21 +28,25 @@ emerson = Promise.promisifyAll(emerson);
 
 exports.getFollowerCount = function(req, res) {
   var twitterHandle = req.body.username;
+  if (User.findOne({'username': twitterHandle})) {
+    console.log('User already in DB');
+  } else {
     emerson.getAsync('followers/ids', {screen_name: twitterHandle, count: 5000})
     .then(function(followers) {
       var newUser = User({
         username: twitterHandle,
         followerCount: followers.ids.length
-      }).save()
-      .then(res.send(followers));
+      }).save();
     })
     .catch(function(err) {
       throw err;
     });
+  }
 };
 
 exports.getFollowingCount = function(req, res) {
   var twitterHandle = req.body.username;
+  var userInfo;
     emerson.getAsync('friends/ids', {screen_name: twitterHandle, count: 5000})
     .then(function(following) {
       User.findOne({'username': twitterHandle}, function(err, user) {
@@ -53,8 +58,17 @@ exports.getFollowingCount = function(req, res) {
         user.followingCount = following.ids.length;
         user.followRatio = user.followerCount / user.followingCount;
         user.save();
-      });
-      // .then(res.send(following));
+      })
+      .then(userInfo = User.findOne({'username': twitterHandle}).select({'username': 1, 'followingCount': 1, 'followerCount': 1, 'followRatio': 1}))
+      .then(userInfo.exec(function(err, info) {
+        var infoObj = {
+          'username': info.username,
+          'followerCount': info.followerCount,
+          'followingCount': info.followingCount,
+          'followRatio': info.followRatio
+        };
+        res.send(infoObj);
+      }))
     })
     .catch(function(err) {
       throw err;

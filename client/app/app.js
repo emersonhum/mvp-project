@@ -14,21 +14,29 @@ angular.module('app', ['ngRoute'])
     });
 })
 .controller('searchBarController', function($scope, Search) {
-  console.log('hi');
   $scope.submitUsername = function() {
     // $rootScope.user = $scope.username;
     Search.submitUsername($scope.username);
   };
 })
 
-.controller('followController', function($scope, $rootScope) {
-  // $scope.username = $rootScope.user;
-  // $scope.username = 'dece';
-  $scope.followers = $rootScope.followers;
-  // $scope.followers = 13;
+.controller('followController', function($scope, Search) {
+
+  $scope.username = Search.currentSearch.username;
+  $scope.username = 'hello';
+  $scope.followers = Search.currentSearch.followers;
+  $scope.following = Search.currentSearch.following;
+
 })
 
-.factory('Search', function($http, $rootScope) {
+.factory('Search', function($http) {
+  var currentSearch = {
+    'username': null,
+    'followers': null,
+    'following': null,
+    'followRatio': null
+  };
+
 
   var submitUsername = function(user) {
     console.log(user);
@@ -37,14 +45,19 @@ angular.module('app', ['ngRoute'])
       url: '/',
       data: {username: user}
     })
-    .then(function(followers) {
-      $rootScope.followers = followers.data.ids.length;
-      console.log($rootScope.followers);
+    .then(function(info) {
+      // $rootScope.followers = followers.data.ids.length;
+      console.log(info);
+      currentSearch.username = info.data.username;
+      currentSearch.followers = info.data.followerCount;
+      currentSearch.following = info.data.followingCount;
+      followRatio = info.data.followRatio;
     });
   };
 
   return {
-    submitUsername: submitUsername
+    submitUsername: submitUsername,
+    currentSearch: currentSearch
   };
 
 });
