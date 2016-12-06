@@ -1,8 +1,13 @@
 <div id='container'>
-  <div>
-    <form name='usernameEnty' ng-controller='searchBarController'>
+  <div ng-controller='searchBarController'>
+    <form name='usernameEnty'>
       <input type='text' ng-model='username'>
       <button ng-click='submitUsername(username)'>Search for {{username}}</button>
     </form>
+    <div name='followInfo' ng-controller='followController'>
+      <h3 ng-model='username'>{{username}}</h3>
+      <p id='following' ng-model='following'>Following: {{following}}</p>
+      <p id='followers' ng-model='followers'>Followers: {{followers}}</p>
+    </div>
   </div>
 </div>

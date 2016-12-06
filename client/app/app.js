@@ -1,5 +1,9 @@
 angular.module('app', ['ngRoute'])
 
+.run(function($rootScope) {
+  $rootScope.followers = 0;
+})
+
 
 .config(function($routeProvider) {
   $routeProvider
@@ -11,11 +15,19 @@ angular.module('app', ['ngRoute'])
 .controller('searchBarController', function($scope, Search) {
   console.log('hi');
   $scope.submitUsername = function() {
+    // $rootScope.user = $scope.username;
     Search.submitUsername($scope.username);
   };
 })
 
-.factory('Search', function($http) {
+.controller('followController', function($scope, $rootScope) {
+  // $scope.username = $rootScope.user;
+  // $scope.username = 'dece';
+  $scope.followers = $rootScope.followers;
+  // $scope.followers = 13;
+})
+
+.factory('Search', function($http, $rootScope) {
 
   var submitUsername = function(user) {
     console.log(user);
@@ -24,8 +36,9 @@ angular.module('app', ['ngRoute'])
       url: '/',
       data: {username: user}
     })
-    .then(function(data) {
-      console.log(data.data.users);
+    .then(function(followers) {
+      $rootScope.followers = followers.data.users.length;
+      console.log($rootScope.followers);
     });
   };
 

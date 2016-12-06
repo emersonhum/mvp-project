@@ -30,3 +30,5 @@ mongoose.connection.once('open', function() {
   console.log('we gucci');
 });
 
+// module.exports = mongoose;
+
