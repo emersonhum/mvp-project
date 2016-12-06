@@ -13,10 +13,7 @@ app.use(express.static(path.join(__dirname, '/../client')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/', function(req, res) {
-  handler.getFollowerCount(req, res);
-  handler.getFollowingCount(req, res);
-});
+app.post('/', handler.getFollowerCount);
 
 var port = 3000;
 
