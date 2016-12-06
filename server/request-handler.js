@@ -37,23 +37,18 @@ exports.getFollowerCount = function(req, res) {
     });
     return newUser.save();
   })
-  .then(handler.getFollowingCount(req, res))
-  .catch(function(err) {
-    throw err;
-  });
-};
-
-exports.getFollowingCount = function(req, res) {
-  var twitterHandle = req.body.username;
-  var userInfo;
-  emerson.getAsync('friends/ids', {screen_name: twitterHandle, count: 5000})
+  .then(function() {
+    return emerson.getAsync('friends/ids', {screen_name: twitterHandle, count: 5000});
+  })
   .then(function(following) {
     this.following = following;
+    console.log('following', following);
     var tempUser = User.findOne({'username': twitterHandle});
     return tempUser.exec();
   })
   .then(function(user) {
     console.log('found user!!!', user);
+    console.log(this.following);
     user.followingCount = this.following.ids.length;
     user.followRatio = user.followerCount / user.followingCount;
     console.log(user);
@@ -73,6 +68,59 @@ exports.getFollowingCount = function(req, res) {
     console.log(infoObj.followerCount);
     res.send(infoObj);
   });
+};
+
+
+  // .catch(function(err) {
+  //   throw err;
+  // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// exports.getFollowingCount = function(req, res) {
+//   var twitterHandle = req.body.username;
+//   var userInfo;
+//   emerson.getAsync('friends/ids', {screen_name: twitterHandle, count: 5000})
+//   .then(function(following) {
+//     this.following = following;
+//     var tempUser = User.findOne({'username': twitterHandle});
+//     return tempUser.exec();
+//   })
+//   .then(function(user) {
+//     console.log('found user!!!', user);
+//     user.followingCount = this.following.ids.length;
+//     user.followRatio = user.followerCount / user.followingCount;
+//     console.log(user);
+//     return user.save();
+//   })
+//   .then(function() {
+//     var userInfo = User.findOne({'username': twitterHandle});
+//     return userInfo.exec();
+//   })
+//   .then(function(info) {
+//     var infoObj = {
+//     'username': info.username,
+//     'followerCount': info.followerCount,
+//     'followingCount': info.followingCount,
+//     'followRatio': info.followRatio
+//     };
+//     console.log(infoObj.followerCount);
+//     res.send(infoObj);
+//   });
 
 
 
@@ -87,7 +135,7 @@ exports.getFollowingCount = function(req, res) {
     // .catch(function(err) {
     //   throw err;
     // });
-};
+
 
 // exports.getFollowingRatio = function(req, res) {
 //   var twitterHandle = req.body.username;
