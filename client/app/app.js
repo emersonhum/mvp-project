@@ -25,7 +25,7 @@ angular.module('app', ['ngRoute'])
       data: {username: user}
     })
     .then(function(data) {
-      console.log(data);
+      console.log(data.data.users);
     });
   };
 
