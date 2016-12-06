@@ -13,14 +13,17 @@ app.use(express.static(path.join(__dirname, '/../client')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/', handler.submitAPIrequest);
+app.post('/', function(req, res) {
+  handler.getFollowerCount(req, res);
+  handler.getFollowingCount(req, res);
+});
 
 var port = 3000;
 
 app.listen(port);
 
 // app.get('/', handler.showHomepage);
-// app.post('/', handler.submitAPIrequest);
+// app.post('/', handler.getFollowerCount);
 
 console.log('Listening on port :', port);
 

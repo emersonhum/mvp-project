@@ -2,6 +2,7 @@ angular.module('app', ['ngRoute'])
 
 .run(function($rootScope) {
   $rootScope.followers = 0;
+  $rootScope.following = 0;
 })
 
 
@@ -37,7 +38,7 @@ angular.module('app', ['ngRoute'])
       data: {username: user}
     })
     .then(function(followers) {
-      $rootScope.followers = followers.data.users.length;
+      $rootScope.followers = followers.data.ids.length;
       console.log($rootScope.followers);
     });
   };

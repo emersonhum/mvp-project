@@ -3,7 +3,8 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var keys = require('./twitterAPIKeys');
 var Promise = require('bluebird');
-var db = require('../db/db-config');
+var User = require('../db/db-config');
+
 
 var Twitter = require('twitter');
 
@@ -24,12 +25,36 @@ emerson = Promise.promisifyAll(emerson);
 //   // res.sendFile('index.html', {root: path.join(__dirname, '../client')});
 // };
 
-exports.submitAPIrequest = function(req, res) {
+exports.getFollowerCount = function(req, res) {
   var twitterHandle = req.body.username;
-    emerson.getAsync('followers/list', {screen_name: twitterHandle, count: 5})
+    emerson.getAsync('followers/ids', {screen_name: twitterHandle, count: 5000})
     .then(function(followers) {
-      // console.log(followers);
-      res.send(followers);
+      var newUser = User({
+        username: twitterHandle,
+        followerCount: followers.ids.length
+      }).save()
+      .then(res.send(followers));
+    })
+    .catch(function(err) {
+      throw err;
+    });
+};
+
+exports.getFollowingCount = function(req, res) {
+  var twitterHandle = req.body.username;
+    emerson.getAsync('friends/ids', {screen_name: twitterHandle, count: 5000})
+    .then(function(following) {
+      User.findOne({'username': twitterHandle}, function(err, user) {
+        if (err) {
+          console.log('could not find');
+          throw err;
+        }
+        console.log('found user!!!');
+        user.followingCount = following.ids.length;
+        user.followRatio = user.followerCount / user.followingCount;
+        user.save();
+      });
+      // .then(res.send(following));
     })
     .catch(function(err) {
       throw err;
