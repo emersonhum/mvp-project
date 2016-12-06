@@ -2,6 +2,7 @@ var request = require('request');
 var path = require('path');
 var bodyParser = require('body-parser');
 var keys = require('./twitterAPIKeys');
+var Promise = require('bluebird');
 
 var Twitter = require('twitter');
 
@@ -28,6 +29,20 @@ exports.submitAPIrequest = function(req, res) {
     }
     console.log(followers);  // The favorites.   // Raw response object. 
     console.log(req.body.username);
+    res.send(followers);
+  });
+};
+
+exports.getFollowingRatio = function(req, res) {
+  var twitterHandle = req.body.username;
+  var options = {
+    screen_name: twitterHandle,
+    count: 5000
+  }
+  emerson.get('followers/ids', options, function(err, followers, response) {
+    if (err) {
+      throw err;
+    }
     res.send(followers);
   });
 };

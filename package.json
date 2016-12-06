@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/emersonhum/mvp-project#readme",
   "dependencies": {
+    "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "mongoose": "^4.7.1",
     "path": "^0.12.7",
     "request": "^2.79.0",
     "twitter": "^1.5.0"
