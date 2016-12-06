@@ -1,0 +1,21 @@
+{
+  "name": "mvp-project",
+  "description": "Search username with Instagram's API",
+  "main": "index.js",
+  "authors": [
+    "Emerson Hum"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/emersonhum/mvp-project",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.9",
+    "angular-route": "^1.5.9"
+  }
+}
