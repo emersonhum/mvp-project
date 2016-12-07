@@ -8,6 +8,11 @@
       <h3 ng-model='username'>{{username}}</h3>
       <p id='following' ng-model='following'>Following: {{following}}</p>
       <p id='followers' ng-model='followers'>Followers: {{followers}}</p>
+      <p id='followRatio' ng-model='followRatio'>Ratio: {{followRatio}}</p>
     </div>
+    <table name='previousSearch' ng-controller='previousSearchController'>
+      <td>{{username}}</td>
+    </table>
+
   </div>
 </div>

@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/', handler.getFollowerCount);
+app.get('/yo', handler.getDatabase);
 
 var port = 3000;
 

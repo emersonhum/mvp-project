@@ -42,16 +42,12 @@ exports.getFollowerCount = function(req, res) {
   })
   .then(function(following) {
     this.following = following;
-    console.log('following', following);
     var tempUser = User.findOne({'username': twitterHandle});
     return tempUser.exec();
   })
   .then(function(user) {
-    console.log('found user!!!', user);
-    console.log(this.following);
     user.followingCount = this.following.ids.length;
     user.followRatio = user.followerCount / user.followingCount;
-    console.log(user);
     return user.save();
   })
   .then(function() {
@@ -70,83 +66,10 @@ exports.getFollowerCount = function(req, res) {
   });
 };
 
-
-  // .catch(function(err) {
-  //   throw err;
-  // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// exports.getFollowingCount = function(req, res) {
-//   var twitterHandle = req.body.username;
-//   var userInfo;
-//   emerson.getAsync('friends/ids', {screen_name: twitterHandle, count: 5000})
-//   .then(function(following) {
-//     this.following = following;
-//     var tempUser = User.findOne({'username': twitterHandle});
-//     return tempUser.exec();
-//   })
-//   .then(function(user) {
-//     console.log('found user!!!', user);
-//     user.followingCount = this.following.ids.length;
-//     user.followRatio = user.followerCount / user.followingCount;
-//     console.log(user);
-//     return user.save();
-//   })
-//   .then(function() {
-//     var userInfo = User.findOne({'username': twitterHandle});
-//     return userInfo.exec();
-//   })
-//   .then(function(info) {
-//     var infoObj = {
-//     'username': info.username,
-//     'followerCount': info.followerCount,
-//     'followingCount': info.followingCount,
-//     'followRatio': info.followRatio
-//     };
-//     console.log(infoObj.followerCount);
-//     res.send(infoObj);
-//   });
-
-
-
-
-
-
-    //   userInfo.exec(function(err, info) {
-
-    //   res.send(infoObj);
-    // }))
-
-    // .catch(function(err) {
-    //   throw err;
-    // });
-
-
-// exports.getFollowingRatio = function(req, res) {
-//   var twitterHandle = req.body.username;
-//   var options = {
-//     screen_name: twitterHandle,
-//     count: 5000
-//   }
-//   emerson.get('followers/ids', options, function(err, followers, response) {
-//     if (err) {
-//       throw err;
-//     }
-//     res.send(followers);
-//   });
-// };
+exports.getDatabase = function(req, res) {
+  console.log('got got');
+  // console.log(User);
+  User.find({}, function(err, data) {
+    res.send(data);
+  });
+};
