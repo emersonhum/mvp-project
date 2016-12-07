@@ -8,7 +8,8 @@ var userSchema = new Schema({
   username: String,
   followerCount: Number,
   followingCount: Number,
-  followRatio: Number
+  followRatio: Number,
+  bot: String
 });
 
 var User = db.model('User', userSchema);

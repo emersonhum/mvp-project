@@ -48,6 +48,15 @@ exports.getFollowerCount = function(req, res) {
   .then(function(user) {
     user.followingCount = this.following.ids.length;
     user.followRatio = user.followerCount / user.followingCount;
+    if (user.followingCount > 1000 && user.followRatio < 0.6) {
+      user.bot = 'BOT';
+    } else if (user.followingCount > 5000) {
+      user.bot = 'BOT';
+    } else if (user.followRatio < 0.3 && user.followingCount < 100) {
+      user.bot = 'BOT';
+    } else {
+      user.bot = 'not';
+    }
     return user.save();
   })
   .then(function() {
@@ -59,9 +68,10 @@ exports.getFollowerCount = function(req, res) {
     'username': info.username,
     'followerCount': info.followerCount,
     'followingCount': info.followingCount,
-    'followRatio': info.followRatio
+    'followRatio': info.followRatio,
+    'bot': info.bot
     };
-    console.log(infoObj.followerCount);
+    console.log(infoObj.bot);
     res.send(infoObj);
   });
 };

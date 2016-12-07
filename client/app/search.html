@@ -10,8 +10,14 @@
       <p id='followers' ng-model='followers'>Followers: {{followers}}</p>
       <p id='followRatio' ng-model='followRatio'>Ratio: {{followRatio}}</p>
     </div>
-    <table name='previousSearch' ng-controller='previousSearchController'>
-      <td>{{username}}</td>
+    <table name='previousSearch' ng-controller='previousSearchController' class='table'>
+      <tr ng-repeat='user in data'>
+
+      <td title='name'>{{user.username}}</td>
+      <td title='following'>{{user.followingCount}}</td>
+      <td title='followers'>{{user.followerCount}}</td>
+      <td title='followRatio'>{{user.followRatio.toFixed(2)}}</td>
+      <td title='botOrNot'>{{user.bot}}</td>
     </table>
 
   </div>
