@@ -67,8 +67,6 @@ exports.getFollowerCount = function(req, res) {
 };
 
 exports.getDatabase = function(req, res) {
-  console.log('got got');
-  // console.log(User);
   User.find({}, function(err, data) {
     res.send(data);
   });

@@ -30,6 +30,9 @@ angular.module('app', ['ngRoute'])
 })
 
 .controller('previousSearchController', function($scope, Search, $rootScope) {
+  $rootScope.$on('newUserData', function() {
+    $scope.data = Search.previousSearches; 
+  });
 
 })
 
@@ -40,6 +43,8 @@ angular.module('app', ['ngRoute'])
     'following': null,
     'followRatio': null
   };
+
+  var previousSearches;
 
 
   var submitUsername = function(user) {
@@ -55,7 +60,6 @@ angular.module('app', ['ngRoute'])
       currentSearch.followers = info.data.followerCount;
       currentSearch.following = info.data.followingCount;
       currentSearch.followRatio = info.data.followRatio;
-      $rootScope.$emit('newUserData');
       return new Promise(function(resolve, reject) {
         resolve('Success!');
         });
@@ -74,7 +78,8 @@ angular.module('app', ['ngRoute'])
       url: 'http://localhost:3000/yo'
     })
     .then(function(database) {
-      console.log(database);
+      previousSearches = database.data;
+      $rootScope.$emit('newUserData');
     });
   };
 
