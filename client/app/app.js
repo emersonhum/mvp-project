@@ -1,6 +1,7 @@
 angular.module('app', ['ngRoute', 'ngTable'])
 
-.run(function($rootScope) {
+.run(function($rootScope, Search) {
+  Search.queryDatabase();
 
 })
 

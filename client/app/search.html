@@ -20,7 +20,7 @@
         <th>Bot or Not?</th>
       </tr>
       </thead>
-      <tbody ng-repeat='user in data'>
+      <tbody ng-repeat='user in data.slice().reverse()'>
       <td title='name' class='.col-md-4'>{{user.username}}</td>
       <td title='following' class='.col-md-4'>{{user.followingCount}}</td>
       <td title='followers' class='.col-md-4'>{{user.followerCount}}</td>

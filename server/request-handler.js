@@ -48,9 +48,9 @@ exports.getFollowerCount = function(req, res) {
   .then(function(user) {
     user.followingCount = this.following.ids.length;
     user.followRatio = user.followerCount / user.followingCount;
-    if (user.followingCount > 1000 && user.followRatio < 0.6) {
+    if (user.followingCount > 500 && user.followRatio < 0.6) {
       user.bot = 'BOT';
-    } else if (user.followingCount > 5000) {
+    } else if (user.followingCount > 4999) {
       user.bot = 'BOT';
     } else if (user.followRatio < 0.3 && user.followingCount < 100) {
       user.bot = 'BOT';
