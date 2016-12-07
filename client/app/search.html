@@ -1,4 +1,4 @@
-<div id='container'>
+<div id='container' class='.container'>
   <div ng-controller='searchBarController'>
     <form name='usernameEnty'>
       <input type='text' ng-model='username'>
@@ -10,14 +10,23 @@
       <p id='followers' ng-model='followers'>Followers: {{followers}}</p>
       <p id='followRatio' ng-model='followRatio'>Ratio: {{followRatio}}</p>
     </div>
-    <table name='previousSearch' ng-controller='previousSearchController' class='table'>
-      <tr ng-repeat='user in data'>
-
-      <td title='name'>{{user.username}}</td>
-      <td title='following'>{{user.followingCount}}</td>
-      <td title='followers'>{{user.followerCount}}</td>
-      <td title='followRatio'>{{user.followRatio.toFixed(2)}}</td>
+    <table name='previousSearch' ng-controller='previousSearchController' class='table table-inverse'>
+      <thead>
+      <tr>
+        <th>Twitter Handle</th>
+        <th>Following</th>
+        <th>Followers</th>
+        <th>Follow Ratio</th>
+        <th>Bot or Not?</th>
+      </tr>
+      </thead>
+      <tbody ng-repeat='user in data'>
+      <td title='name' class='.col-md-4'>{{user.username}}</td>
+      <td title='following' class='.col-md-4'>{{user.followingCount}}</td>
+      <td title='followers' class='.col-md-4'>{{user.followerCount}}</td>
+      <td title='followRatio' class='.col-md-4'>{{user.followRatio.toFixed(2)}}</td>
       <td title='botOrNot'>{{user.bot}}</td>
+      </tbody>
     </table>
 
   </div>

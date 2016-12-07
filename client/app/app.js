@@ -15,6 +15,7 @@ angular.module('app', ['ngRoute', 'ngTable'])
 .controller('searchBarController', function($scope, Search) {
   $scope.submitUsername = function() {
     Search.submitUsername($scope.username);
+    $scope.username = '';
   };
 })
 
@@ -25,6 +26,7 @@ angular.module('app', ['ngRoute', 'ngTable'])
     $scope.followers = Search.currentSearch.followers;
     $scope.following = Search.currentSearch.following;
     $scope.followRatio = (Search.currentSearch.followRatio).toFixed(2);
+    $scope.bot = Search.currentSearch.bot;
   });
 
 })
