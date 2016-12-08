@@ -31,6 +31,7 @@ node_modules
 jspm_packages
 bower_components
 client/lib
+server/twitterAPIKeys.js
 
 # Optional npm cache directory
 .npm

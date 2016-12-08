@@ -20,8 +20,6 @@ var port = 3000;
 
 app.listen(port);
 
-// app.get('/', handler.showHomepage);
-// app.post('/', handler.getFollowerCount);
 
 console.log('Listening on port :', port);
 
